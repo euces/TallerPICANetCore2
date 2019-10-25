@@ -1,0 +1,52 @@
+﻿@model TallerPICANetCore.Models.Usuario
+@{
+    ViewBag.Title = "login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>login</h2>
+@using (Html.BeginForm("Login", "", FormMethod.Post))
+{
+    //this is for create form tag
+    @Html.AntiForgeryToken() // this is for prevent CSRF attack
+    @Html.ValidationSummary(true)
+    if (@ViewBag.Message != null)
+    {
+
+        <div style="border:1px solid red">
+            @ViewBag.Message
+        </div>
+    }
+    if (@ViewBag.Error != null)
+    {
+
+        <div style="border:1px solid red">
+            @ViewBag.Error
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-3 form-horizontal">
+            @Html.LabelFor(a => a.NombreUsuario)
+            @Html.TextBoxFor(a => a.NombreUsuario, new { @class = "form-control", placeholder = "Nombre de usuario" })
+            @Html.ValidationMessageFor(a => a.NombreUsuario, null, new { @class = "text-danger" })
+        </div>
+        <div class="col-md-3 form-horizontal">
+            @Html.LabelFor(a => a.Contrasenia)
+            @Html.PasswordFor(a => a.Contrasenia, new { @class = "form-control", placeholder = "Contaseña" })
+            @Html.ValidationMessageFor(a => a.Contrasenia, null, new { @class = "text-danger" })
+        </div>
+        <div class="col-md-3 form-horizontal">
+            @Html.LabelFor(a => a.Email)
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control", placeholder = "Correo electrónico" })
+            @Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-12 form-group">
+            <button type="submit" class="btn btn-primary">Iniciar sesion</button>
+        </div>
+    </div>
+}
