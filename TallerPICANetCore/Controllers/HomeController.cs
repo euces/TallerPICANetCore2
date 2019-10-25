@@ -33,7 +33,7 @@ namespace TallerPICANetCore.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> LoginAsync(Usuario u)
+        public ActionResult Login(Usuario u)
         {
             if (ModelState.IsValid)
             {
@@ -51,7 +51,7 @@ namespace TallerPICANetCore.Controllers
                         new Claim("user", "eulices"),
                         new Claim("role", "Admin")
                     };
-                    await HttpContext.SignInAsync(new ClaimsPrincipal(new ClaimsIdentity(claims, "Cookies", "user", "role")));
+                    HttpContext.SignInAsync(new ClaimsPrincipal(new ClaimsIdentity(claims, "Cookies", "user", "role")));
                     return RedirectToAction("Contacto", "Contacto");
                 }
                 else
