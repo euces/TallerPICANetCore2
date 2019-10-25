@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TallerPICANetCore.Auth;
@@ -49,9 +50,13 @@ namespace TallerPICANetCore
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);            
             services.AddMvc(options =>
-            { 
-                options.Filters.Add(new ProducesAttribute("application/json"));
-                options.Filters.Add(new ProducesAttribute("application/xml"));
+            {
+                options.RespectBrowserAcceptHeader = true;
+                options.ReturnHttpNotAcceptable = true;
+                options.InputFormatters.Add(new XmlSerializerInputFormatter());
+                options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+                //options.Filters.Add(new ProducesAttribute("application/json"));
+                //options.Filters.Add(new ProducesAttribute("application/xml"));               
             }).AddXmlSerializerFormatters();
         }
     
